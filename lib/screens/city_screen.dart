@@ -87,7 +87,7 @@ class _ManageCityState extends State<ManageCity> {
                         _arrController.text,
                         _depController.text,
                         int.parse(_priceController.text),
-                        _heurController.text,
+                        _heurController.text as List<String>,
                       );
 
                       // Si l'opération réussit, mettre fin au chargement

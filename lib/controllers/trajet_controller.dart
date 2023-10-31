@@ -32,7 +32,7 @@ class TrajetController {
       FirebaseFirestore.instance.collection('trajet');
 
   Future<void> inserTraject(
-      cityArrival, cityDeparture, price, timeDeparture) async {
+      cityArrival, cityDeparture, price, List<String> timeDeparture) async {
     Trajet trajet = Trajet(
         cityArrival: cityArrival,
         cityDeparture: cityDeparture,
@@ -49,6 +49,13 @@ class TrajetController {
       throw e; // Propager l'erreur pour la capturer depuis l'appelant
     }
   }
-
+Future<void> deleteTrajet(String trajetId) async {
+    try {
+      await trajectCollection.doc(trajetId).delete();
+    } catch (e) {
+      throw Exception("Error deleting trajet: $e");
+    }
+  }
+  
   // Autres méthodes de votre contrôleur
 }

@@ -137,8 +137,7 @@ class _UpdateCityModelState extends State<UpdateCity> {
         setState(() {
           _depController.text = data['city_departure'] ?? '';
           _arrController.text = data['city_arrival'] ?? '';
-          _heurController.text = data['time_departure'] ?? '';
-          _priceController.text = data['price'].toString();
+            _priceController.text = data['price'].toString();
         });
       }
     });
@@ -159,11 +158,7 @@ class _UpdateCityModelState extends State<UpdateCity> {
           keyboardType: TextInputType.text,
           decoration: const InputDecoration(hintText: 'City Destinations'),
         ),
-        TextField(
-          controller: _heurController,
-          keyboardType: TextInputType.text,
-          decoration: const InputDecoration(hintText: 'heure departure'),
-        ),
+      
         TextField(
           controller: _priceController,
           keyboardType: TextInputType.text,
@@ -180,8 +175,7 @@ class _UpdateCityModelState extends State<UpdateCity> {
               cityDeparture: _depController.text,
               isActive: true,
               price: int.parse(_priceController.text),
-              timeDeparture: _heurController.text,
-            );
+             );
             FirebaseFirestore.instance
                 .collection('trajet')
                 .doc(widget.id)
