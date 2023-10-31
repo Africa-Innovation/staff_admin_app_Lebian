@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "455762911",
+    "project_id": "staff-ticket-app",
+    "storage_bucket": "staff-ticket-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:455762911:android:9d91a916551a2d83665a6a",
+        "android_client_info": {
+          "package_name": "com.example.admin_dashboard"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDH30UYcBDK_C67RqiMcE9wl7PdDPE0mtA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:455762911:android:ed100010f27b0255665a6a",
+        "android_client_info": {
+          "package_name": "com.example.staff_application"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDH30UYcBDK_C67RqiMcE9wl7PdDPE0mtA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
