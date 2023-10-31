@@ -106,8 +106,7 @@ import 'package:admin_dashboard/models/trajet.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-import '../controllers/trajet_controller.dart';
-
+ 
 class UpdateCity extends StatefulWidget {
   final String id;
 
@@ -120,8 +119,7 @@ class UpdateCity extends StatefulWidget {
 class _UpdateCityModelState extends State<UpdateCity> {
   final TextEditingController _depController = TextEditingController();
   final TextEditingController _arrController = TextEditingController();
-  final TextEditingController _heurController = TextEditingController();
-  final TextEditingController _priceController = TextEditingController();
+   final TextEditingController _priceController = TextEditingController();
 
   @override
   void initState() {

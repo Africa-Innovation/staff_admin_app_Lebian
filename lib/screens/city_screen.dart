@@ -1,5 +1,4 @@
-import 'package:admin_dashboard/models/trajet.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+ 
 import 'package:flutter/material.dart';
 
 import '../controllers/trajet_controller.dart';
