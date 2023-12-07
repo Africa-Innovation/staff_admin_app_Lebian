@@ -1,9 +1,11 @@
  
 
-import 'package:admin_dashboard/screens/Notification_screen.dart';
+ 
+import 'package:admin_dashboard/screens/add_ville.dart';
 import 'package:admin_dashboard/screens/city_screen.dart';
 import 'package:admin_dashboard/screens/home_screen.dart';
 import 'package:admin_dashboard/screens/list_city.dart';
+import 'package:admin_dashboard/screens/add_pub.dart';
 import 'package:admin_dashboard/screens/time_screen.dart';
  import 'package:flutter/material.dart';
 
@@ -72,7 +74,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 ),
                 ListTile(
                   leading: Icon(Icons.notifications_outlined),
-                  title: Text("Notifications"),
+                  title: Text("AddVille"),
                   selected: _currentIndex == 2,
                   onTap: () {
                     setState(() {
@@ -88,7 +90,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 ),
                 ListTile(
                   leading: Icon(Icons.location_city_outlined),
-                  title: Text("City"),
+                  title: Text("Pub"),
                   selected: _currentIndex == 3,
                   onTap: () {
                     setState(() {
@@ -143,9 +145,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   children: [
                     HomeScreen(),
                     ManageTime(),
-                    ManageNotification(),
-                    ManageCity(),
-                    ListCity(),
+                    AddCityScreen(),
+                    UploadBannerScreen(),
+                    CreateTrajetScreen(),
                    ],
                 ),
               ),

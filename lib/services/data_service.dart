@@ -2,7 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import '../models/book.dart';
-import '../models/UserData.dart';
+import '../models/userData.dart';
+ 
 
 class DataService {
  static final CollectionReference _ticketInfoCol =

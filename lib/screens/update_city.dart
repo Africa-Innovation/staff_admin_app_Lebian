@@ -166,30 +166,64 @@ class _UpdateCityModelState extends State<UpdateCity> {
           height: MediaQuery.of(context).size.width * 0.01,
         ),
         ElevatedButton(
-          onPressed: () {
-            // Mettre à jour les données du trajet dans Firestore avec les nouvelles valeurs
-            Trajet trajet = Trajet(
-              cityArrival: _arrController.text,
-              cityDeparture: _depController.text,
-              isActive: true,
-              price: int.parse(_priceController.text),
-             );
-            FirebaseFirestore.instance
-                .collection('trajet')
-                .doc(widget.id)
-                .update(trajet.toJson())
-                .then((_) {
-              // Si la mise à jour réussit, fermez la fenêtre modale
-              Navigator.of(context).pop();
-            }).catchError((error) {
-              // Gérer les erreurs ici, par exemple, afficher un message d'erreur
-              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                content: Text('Échec de la mise à jour des données : $error'),
-              ));
-            });
-          },
-          child: Text("Valider"),
-        ),
+  onPressed: () {
+    FirebaseFirestore.instance
+        .collection('trajet')
+        .doc(widget.id)
+        .update({
+          'city_departure': _depController.text,
+          'city_arrival': _arrController.text,
+          'price': int.parse(_priceController.text),
+        })
+        .then((_) {
+          // Si la mise à jour réussit, fermez la fenêtre modale
+          Navigator.of(context).pop();
+        })
+        .catchError((error) {
+          // Gérer les erreurs ici, par exemple, afficher un message d'erreur
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text('Échec de la mise à jour des données : $error'),
+          ));
+        });
+  },
+  child: Text("Valider"),
+),
+
+//          ElevatedButton(
+//   onPressed: () {
+//     FirebaseFirestore.instance
+//         .collection('trajet')
+//         .doc(widget.id)
+//         .get()
+//         .then((doc) {
+//       if (doc.exists) {
+//         Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
+
+//         // Mettre à jour uniquement les champs modifiés
+//         data['cityArrival'] = _arrController.text;
+//         data['cityDeparture'] = _depController.text;
+//         data['price'] = int.parse(_priceController.text);
+
+//         // Mettre à jour le document complet avec les modifications
+//         FirebaseFirestore.instance
+//             .collection('trajet')
+//             .doc(widget.id)
+//             .update(data)
+//             .then((_) {
+//           // Si la mise à jour réussit, fermez la fenêtre modale
+//           Navigator.of(context).pop();
+//         }).catchError((error) {
+//           // Gérer les erreurs ici, par exemple, afficher un message d'erreur
+//           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+//             content: Text('Échec de la mise à jour des données : $error'),
+//           ));
+//         });
+//       }
+//     });
+//   },
+//   child: Text("Valider"),
+// ),
+
       ],
     );
   }
