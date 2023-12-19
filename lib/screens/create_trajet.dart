@@ -57,6 +57,7 @@ class _CreateTrajetScreenState extends State<CreateTrajetScreen> {
     });
   }
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -234,24 +235,43 @@ class _CreateTrajetScreenState extends State<CreateTrajetScreen> {
 
                   final List<DocumentSnapshot> trajets = snapshot.data!.docs;
 
-                  return ListView.builder(
-                    itemCount: trajets.length,
-                    itemBuilder: (context, index) {
-                      final trajetData = trajets[index].data() as Map<String, dynamic>;
-                      final trajet = Trajet.fromJson(trajetData);
+                 return ListView.builder(
+  itemCount: trajets.length,
+  itemBuilder: (context, index) {
+    final trajetData = trajets[index].data() as Map<String, dynamic>;
+    final trajet = Trajet.fromJson(trajetData);
 
-                      return ListTile(
-                        title: Text('Trajet de ${trajet.cityDeparture} à ${trajet.cityArrival}'),
-                        subtitle: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text('Prix: ${trajet.price}'),
-                            Text('Heures de départ: ${trajet.timeDeparture.join(", ")}'),
-                          ],
-                        ),
-                      );
-                    },
-                  );
+    return FutureBuilder<String>(
+      future: _getCityName(trajet.cityDeparture), // Méthode pour obtenir le nom de la ville à partir de l'ID
+      builder: (BuildContext context, AsyncSnapshot<String> departureSnapshot) {
+        if (departureSnapshot.connectionState == ConnectionState.waiting) {
+          return CircularProgressIndicator();
+        }
+
+        return FutureBuilder<String>(
+          future:  _getCityName(trajet.cityArrival), // Méthode pour obtenir le nom de la ville à partir de l'ID
+          builder: (BuildContext context, AsyncSnapshot<String> arrivalSnapshot) {
+            if (arrivalSnapshot.connectionState == ConnectionState.waiting) {
+              return CircularProgressIndicator();
+            }
+
+            return ListTile(
+              title: Text('Trajet de ${departureSnapshot.data} à ${arrivalSnapshot.data}'),
+              subtitle: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('Prix: ${trajet.price}'),
+                  Text('Heures de départ: ${trajet.timeDeparture.join(", ")}'),
+                ],
+              ),
+            );
+          },
+        );
+      },
+    );
+  },
+);
+
                 },
               ),
             ),
@@ -260,5 +280,17 @@ class _CreateTrajetScreenState extends State<CreateTrajetScreen> {
       ),
     );
   }
+   
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
+   Future<String> _getCityName(String cityId) async {
+    final cityDoc =
+        await _firestore.collection('villes').doc(cityId).get();
+    if (cityDoc.exists) {
+      return cityDoc['nom'] as String;
+    }
+    return 'Nom de la ville non trouvé';
+  }
+
 }
 

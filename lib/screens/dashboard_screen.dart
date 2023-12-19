@@ -3,8 +3,8 @@
  
 import 'package:admin_dashboard/screens/add_ville.dart';
 import 'package:admin_dashboard/screens/city_screen.dart';
+import 'package:admin_dashboard/screens/create_trajet.dart';
 import 'package:admin_dashboard/screens/home_screen.dart';
-import 'package:admin_dashboard/screens/list_city.dart';
 import 'package:admin_dashboard/screens/add_pub.dart';
 import 'package:admin_dashboard/screens/time_screen.dart';
  import 'package:flutter/material.dart';
@@ -106,7 +106,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 ),
                 ListTile(
                   leading: Icon(Icons.location_city_outlined),
-                  title: Text(" list City"),
+                  title: Text(" create Trajet"),
                   selected: _currentIndex == 4,
                   onTap: () {
                     setState(() {
