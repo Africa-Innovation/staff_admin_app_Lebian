@@ -437,8 +437,7 @@
 //   }
 // }
 
-
-import 'package:admin_dashboard/models/userData.dart';
+ 
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -458,8 +457,42 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   String filter = "";
-  final TextEditingController controller = TextEditingController();
+   final CollectionReference bookingCollection =
+      FirebaseFirestore.instance.collection('booking');
 
+   final CollectionReference usersCollection =
+      FirebaseFirestore.instance.collection('users');
+  int numberOfDocuments = 0;
+  int numberOfUsers= 0;
+@override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getNumberOfDocuments();
+    getNumberOfUsers();
+  }
+  final TextEditingController controller = TextEditingController();
+ void getNumberOfDocuments() async {
+    try {
+      QuerySnapshot querySnapshot = await bookingCollection.get();
+      setState(() {
+        numberOfDocuments = querySnapshot.size;
+      });
+    } catch (e) {
+      print('Erreur lors de la récupération des documents : $e');
+    }
+  }
+  void getNumberOfUsers() async {
+    try {
+      QuerySnapshot querySnapshot = await usersCollection.get();
+      setState(() {
+        numberOfUsers = querySnapshot.size;
+      });
+    } catch (e) {
+      print('Erreur lors de la récupération des documents : $e');
+    }
+  }
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -478,53 +511,21 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: ListView(
                         scrollDirection: Axis.horizontal,
                         children: [
-                          StreamBuilder<List<UserData>>(
-                            stream: DataService.streamAllUsers(),
-                            builder: (context, snapshot) {
-                              if (snapshot.hasError) {
-                                return Center(
-                                    child: Text('Error: ${snapshot.error}'));
-                              }
-
-                              if (!snapshot.hasData) {
-                                return const Center(
-                                    child: CircularProgressIndicator());
-                              }
-
-                              final usersList = snapshot.data;
-
-                              return StatCard(
+                           StatCard(
                                 icon: Icons.supervised_user_circle_outlined,
                                 title: "Utilisateurs",
-                                value: usersList!.length.toString(),
+                                value: numberOfUsers.toString(),
                                 color: Colors.black,
-                              );
-                            },
-                          ),
+                              ),
+                           
                           const SizedBox(width: 25),
-                          StreamBuilder<List<Booking>>(
-                            stream: DataService.streamAllTicketInfo(),
-                            builder: (context, snapshot) {
-                              if (snapshot.hasError) {
-                                return Center(
-                                    child: Text('Error: ${snapshot.error}'));
-                              }
-
-                              if (!snapshot.hasData) {
-                                return const Center(
-                                    child: CircularProgressIndicator());
-                              }
-
-                              final ticketInfoList = snapshot.data;
-
-                              return StatCard(
+                         StatCard(
                                 icon: Icons.airplane_ticket_outlined,
                                 title: "Reservation",
-                                value: ticketInfoList!.length.toString(),
+                                value: numberOfDocuments.toString(),
                                 color: Colors.red,
-                              );
-                            },
-                          ),
+                              ),
+                            
                           const SizedBox(width: 25),
                           const StatCard(
                             icon: Icons.monetization_on_outlined,
